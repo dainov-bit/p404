@@ -5,7 +5,7 @@ import view.*;
  */
 public class Application {
     public static void main(String[] args) {
-        Window w = new Window("src/data.csv");
+        Window w = new Window(args[0]);
         w.run();
     }
 }

@@ -15,6 +15,7 @@ import control.SearchWorkerException;
 public class Repozitory {
     // Храним наших работников
     private Set<Worker> worker = new HashSet<>();
+    private Worker last; // Поле хранит последнего работника.
     private int count = 1; // для назначения id новому работнику
 
     /**
@@ -60,6 +61,16 @@ public void drop(Worker w) { this.worker.remove(w);}
      * Метод выполняет очистку коллекции
      */
     public void clear() { this.worker.clear();}
+    /**
+     * Метод, который должен вернуть массив информации о последнем объекте.
+     * Он нужен лишь для того, чтобы сделать проверку в тестах
+     */
+
+    public Worker getLast() {
+    return this.last;
+    }
+
+
 /**
  * Метод, который в колекцию добовляет работников.
  *
@@ -69,12 +80,16 @@ public void drop(Worker w) { this.worker.remove(w);}
  * @param c      этот параметр указывает, нужно автоматически id делать или вручную. Если из него приходит ноль, тогда id создается автоматически, если приходит другое число, тогда другое число будет id
  */
 public void add(String name, double salary, Status status, int c) {
+    Worker w;
     if (c != 0) {
-        this.worker.add(new Worker(name, salary, status, c));
+        w = new Worker(name, salary, status, c);
+        this.worker.add(w);
         this.count = c + 1;
     } else {
-        this.worker.add(new Worker(name, salary, status, this.counter()));
+        w = new Worker(name, salary, status, this.counter());
+        this.worker.add(w);
     }
+    this.last = w;
 }
 
 
